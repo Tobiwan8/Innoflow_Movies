@@ -1,0 +1,8 @@
+C:\Users\toblar\Desktop\MovieData\Programmet\Innoflow_Movies\Innoflow_Movies\bin\Debug\Innoflow_Movies.exe.config
+C:\Users\toblar\Desktop\MovieData\Programmet\Innoflow_Movies\Innoflow_Movies\bin\Debug\Innoflow_Movies.exe
+C:\Users\toblar\Desktop\MovieData\Programmet\Innoflow_Movies\Innoflow_Movies\bin\Debug\Innoflow_Movies.pdb
+C:\Users\toblar\Desktop\MovieData\Programmet\Innoflow_Movies\Innoflow_Movies\obj\Debug\Innoflow_Movies.csproj.AssemblyReference.cache
+C:\Users\toblar\Desktop\MovieData\Programmet\Innoflow_Movies\Innoflow_Movies\obj\Debug\Innoflow_Movies.csproj.SuggestedBindingRedirects.cache
+C:\Users\toblar\Desktop\MovieData\Programmet\Innoflow_Movies\Innoflow_Movies\obj\Debug\Innoflow_Movies.csproj.CoreCompileInputs.cache
+C:\Users\toblar\Desktop\MovieData\Programmet\Innoflow_Movies\Innoflow_Movies\obj\Debug\Innoflow_Movies.exe
+C:\Users\toblar\Desktop\MovieData\Programmet\Innoflow_Movies\Innoflow_Movies\obj\Debug\Innoflow_Movies.pdb
