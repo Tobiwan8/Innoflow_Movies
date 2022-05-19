@@ -1,0 +1,342 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.IO;
+//Tilføjet så det ikke skal skrives hver gang man skal bruge sit array
+
+
+namespace Projektopgave
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            //Husk at rette stien til datafilen. Tryk ctrl+f og søg "projekt", så kan i se de 3 steder hvor det skal rettes.
+
+            string tastetryk = "";
+            string telefonnr = "";
+            string navn = "";
+            string efternavn = "";
+            string adresse = "";
+            string postnr = "";
+            string by = "";
+            string email = "";
+            string søgning = "";
+            string fundet = "";
+            string password = "";
+            string nykunde = "";
+            //Alle strings samlet for at danne overblik
+            int tæller = 0;
+            //Bruges til at tælle i et for loop
+            int pos = 9;
+            //Bruges til at sætte en position i et foreach loop
+            string[] datafil = File.ReadAllLines(@"C:\Projekt\datafil.txt", Encoding.Unicode);
+            //Definerer hvilken sti programmet skal benytte, for at finde den tekstfil der skal kunne redigeres i.
+            Console.SetWindowSize(80, 25);
+            //Sætter en fast størrelse på programmets vindue
+            Console.BackgroundColor = ConsoleColor.Blue;
+            Console.ForegroundColor = ConsoleColor.White;
+            //Sætter bagrundsfarven til blå, og teksten til hvid
+            Console.Clear();
+            //clearer skærmen
+            do
+            //Starter et loop som holder programmet kørende så længe der ikke trykkes på Q
+            {
+                Console.SetCursorPosition(25, 3);
+                //sætter cursoren ud for det valgte punkt.
+                Console.WriteLine("Bent og Bentes genbrugsbutik");
+                //overskrift på hovedmenuen
+
+                Console.SetCursorPosition(5, 5);
+                Console.Write("Vælg funktion: ");
+                Console.SetCursorPosition(5, 7);
+                Console.Write("[O] Opret    [L] Login   [Q] Afslut");
+                //menuen der skal navigere brugeren rundt i programmet
+
+                tastetryk = Convert.ToString(Console.ReadKey(true).KeyChar);
+                //gør at programmet kan reagere på specifikke tastetryk på tastaturet
+
+                switch (tastetryk)
+                //definerer hvilke taster programmet skal reagere på
+                {
+                    case "o":
+                        //her beskrives hvad der sket hvis brugeren trykker O
+                        Console.Clear();
+                        Console.SetCursorPosition(5, 3);
+                        Console.Write("Telefonnr    : ");
+                        //beder brugeren om at indtaste information
+                        telefonnr = Console.ReadLine();
+                        //Gemmer den indtastede information i en variabel
+                        foreach (var item in datafil)
+                        //fortæller programmet at den skal læse hele tekstilen. item = hver linje i tekstfilen
+                        {
+                            if (item.Contains(telefonnr))
+                            //bestemmer hvad programmet skal gøre, hvis det man har skrevet stemmer overens med noget i databasen
+                            {
+                                Console.Clear();
+                                Console.SetCursorPosition(5, 3);
+                                Console.WriteLine("Nummeret findes allerede i kundebasen");
+                                Console.ReadKey();
+                                Console.Clear();
+                                Console.SetCursorPosition(5, 5);
+                                fundet = "fundet";
+                                //sætter en betingelse, hvis der er fundet information der matcher
+                            }
+                        }
+                        if (fundet !="fundet")
+                        //fortæller programmet hvad det skal gøre hvis betingelsen ikke er overholdt
+                        {
+                            Console.Clear();
+                            Console.SetCursorPosition(5, 3);
+                            Console.Write("telefonnr    : " + telefonnr);
+                            //udskriver linje med det telefonnr som brugeren har indtastet
+                            Console.SetCursorPosition(5, 5);
+                            Console.Write("Fornavn      : ");
+                            navn = Console.ReadLine();
+                            Console.SetCursorPosition(5, 7);
+                            Console.Write("Efternavn    : ");
+                            efternavn = Console.ReadLine();
+                            Console.SetCursorPosition(5, 9);
+                            Console.Write("Vejnavn og nr: ");
+                            adresse = Console.ReadLine();
+                            Console.SetCursorPosition(5, 11);
+                            Console.Write("Postnr       : ");
+                            postnr = Console.ReadLine();
+                            Console.SetCursorPosition(5, 13);
+                            Console.Write("By           : ");
+                            by = Console.ReadLine();
+                            Console.SetCursorPosition(5, 15);
+                            Console.Write("Email        : ");
+                            email = Console.ReadLine();
+
+                            Console.SetCursorPosition(5, 19);
+                            Console.WriteLine("Tast G for at gemme, ellers tryk en tast for at vende tilbage til hovedmenuen.");
+                            //giver brugeren mulighed for at gemme de indtastede informationer
+
+                            nykunde = telefonnr + ";" + navn + ";" + efternavn + ";" + adresse + ";" + postnr + ";" + by + ";" + email;
+                            //layoutet for hvordan den indtastede information bliver gemt i arrayet, gemt som en variabel
+
+                            tastetryk = Convert.ToString(Console.ReadKey(true).KeyChar);
+
+                            if (tastetryk == "g")
+                            //definerer hvad programmet gør, hvis brugeren vælger at gemme
+                            {
+                                File.AppendAllText(@"C:\Projekt\Datafil.txt", Environment.NewLine + nykunde, Encoding.Unicode);
+                                //skriver den indtastede information på en ny linje i tekstfilen
+                                datafil = File.ReadAllLines(@"C:\Projekt\datafil.txt", Encoding.Unicode);
+                                //Opdaterer programmet, så den nye information er tilgængelig
+                                Console.Clear();
+                                Console.SetCursorPosition(5, 3);
+                                Console.WriteLine("Oplysninger gemmes");
+                                Console.ReadKey();
+                                Console.Clear();
+                            }
+                            else
+                                //fortæller hvad programmet skal gøre hvis ikke brugeren vil gemme
+
+                                Console.ReadKey(true);
+                                Console.Clear();
+                        }
+                        
+                        break;
+
+                    case "l":
+                        Console.Clear();
+                        Console.SetCursorPosition(5, 3);
+                        Console.Write("Password: ");
+                        Console.BackgroundColor = Console.ForegroundColor;
+                        //Sætter baggrundsfarven som den samme farve som teksten. Gør at man ikke kan se hvad der bliver skrevet.
+                        password = Console.ReadLine();
+                        Console.BackgroundColor = ConsoleColor.Blue;
+                        //Sætter baggrundsfarven tilbage til blå.
+                        if (password == "Ab123456")
+                        {
+                            Console.Clear();
+                            do
+                            //Starter et loop som holder adminmenuen kørende så længe der ikke trykkes på L
+                            {
+                                Console.SetCursorPosition(25, 3);
+                                //sætter cursoren ud for det valgte punkt.
+                                Console.WriteLine("Bent og Bentes genbrugsbutik");
+                                //overskrift på hovedmenuen
+
+                                Console.SetCursorPosition(5, 5);
+                                Console.Write("Vælg funktion: ");
+                                Console.SetCursorPosition(5, 7);
+                                Console.Write("[O] Opret    [F] Find    [V] Vis alle    [L] log ud");
+                                //menuen der skal navigere admin rundt i programmet
+
+                                tastetryk = Convert.ToString(Console.ReadKey(true).KeyChar);
+                                Console.Clear();
+
+                                switch (tastetryk)
+                                {
+                                    case "o":
+                                        Console.Clear();
+                                        Console.SetCursorPosition(5, 3);
+                                        Console.Write("Telefonnr    : ");
+                                        //beder brugeren om at indtaste information
+                                        telefonnr = Console.ReadLine();
+                                        //Gemmer den indtastede information i en variabel
+                                        foreach (var item in datafil)
+                                        {
+                                            if (item.Contains(telefonnr))
+                                            {
+                                                Console.Clear();
+                                                Console.SetCursorPosition(5, 3);
+                                                Console.WriteLine("Nummeret findes allerede i kundebasen");
+                                                Console.ReadKey();
+                                                Console.Clear();
+                                                Console.SetCursorPosition(5, 5);
+                                                fundet = "fundet";
+                                            }
+                                        }
+                                        if (fundet != "fundet")
+                                        {
+                                            Console.Clear();
+                                            Console.SetCursorPosition(5, 3);
+                                            Console.Write("telefonnr    : " + telefonnr);
+                                            Console.SetCursorPosition(5, 5);
+                                            Console.Write("Fornavn      : ");
+                                            navn = Console.ReadLine();
+                                            Console.SetCursorPosition(5, 7);
+                                            Console.Write("Efternavn    : ");
+                                            efternavn = Console.ReadLine();
+                                            Console.SetCursorPosition(5, 9);
+                                            Console.Write("Vejnavn og nr: ");
+                                            adresse = Console.ReadLine();
+                                            Console.SetCursorPosition(5, 11);
+                                            Console.Write("Postnr       : ");
+                                            postnr = Console.ReadLine();
+                                            Console.SetCursorPosition(5, 13);
+                                            Console.Write("By           : ");
+                                            by = Console.ReadLine();
+                                            Console.SetCursorPosition(5, 15);
+                                            Console.Write("Email        : ");
+                                            email = Console.ReadLine();
+
+                                            Console.SetCursorPosition(5, 19);
+                                            Console.WriteLine("Tast G for at gemme, ellers tryk en tast for at vende tilbage til hovedmenuen.");
+                                            //giver brugeren mulighed for at gemme de indtastede informationer
+
+                                            nykunde = telefonnr + ";" + navn + ";" + efternavn + ";" + adresse + ";" + postnr + ";" + by + ";" + email;
+                                            //layoutet for hvordan den indtastede information bliver gemt i arrayet, gemt som en variabel
+
+                                            tastetryk = Convert.ToString(Console.ReadKey(true).KeyChar);
+
+                                            if (tastetryk == "g")
+                                            //definerer hvad programmet gør, hvis brugeren vælger at gemme
+                                            {
+                                                File.AppendAllText(@"C:\Projekt\Datafil.txt", Environment.NewLine + nykunde, Encoding.Unicode);
+                                                //skriver den indtastede information på en ny linje i tekstfilen
+                                                datafil = File.ReadAllLines(@"C:\Projekt\datafil.txt", Encoding.Unicode);
+                                                //Opdaterer programmet, så den nye information er tilgængelig
+                                                Console.Clear();
+                                                Console.SetCursorPosition(5, 3);
+                                                Console.WriteLine("Oplysninger gemmes");
+                                                Console.ReadKey();
+                                                Console.Clear();
+                                            }
+                                            else
+                                                //fortæller hvad programmet skal gøre hvis ikke brugeren vil gemme
+
+                                                Console.ReadKey(true);
+                                            Console.Clear();
+                                        }
+
+                                        break;
+
+                                    case "f":
+                                        Console.SetCursorPosition(5, 3);
+                                        Console.WriteLine("Skriv en information om kunden for at søge");
+
+                                        Console.SetCursorPosition(5, 5);
+                                        Console.Write("Søg: ");
+                                        søgning = Console.ReadLine();
+                                        pos = 9;
+                                        foreach (var item in datafil)
+                                        {
+
+                                            if (item.Contains(søgning))
+                                            {
+                                                Console.SetCursorPosition(4, 7);
+                                                Console.WriteLine("Kunde fundet: ");
+                                                Console.SetCursorPosition(5, pos);
+                                                Console.WriteLine(item);
+                                                //Udskriver de linjer der indeholder informationen der stemmer overens med søgningen.
+                                                pos++;
+                                                //positionen er konstant på 5 på x aksen, men tæller en op på y aksen hver gang der udskrives
+                                                
+                                                fundet = "fundet";
+                                                Console.ReadKey();
+                                            }
+
+                                        }
+                                        if (fundet != "fundet")
+                                        {
+                                            Console.SetCursorPosition(5, 7);
+                                            Console.WriteLine("Kunden findes ikke i databasen");
+                                        }
+
+                                        Console.SetCursorPosition(5, 11);
+                                        Console.WriteLine("Tryk en tast for at vende tilbage til hovedmenuen");
+                                        Console.ReadKey(true);
+                                        Console.Clear();
+
+                                        break;
+
+                                    case "v":
+                                        for (int i = 0; i < datafil.Length; i++)
+                                        //laver et loop der læser tekstfilen linje for linje, og tæller op for hver linje der er læst
+                                        {
+                                            Console.WriteLine(datafil[i]);
+                                            //udskriver hver linje i tekstfilen
+                                            tæller++;
+                                            //en variabel der tæller op efter hver linje og skal definere hvor mange linjer der skal udksrives per side
+                                            if (tæller == 15)
+                                            //fortæller hvad programmet skal gøre, hvis variablen har talt til 15
+                                            {
+                                                Console.WriteLine("\nTryk tast for at fortsætte");
+                                                Console.ReadKey(true);
+                                                Console.Clear();
+                                                tæller = 0;
+                                                //sætter variablen tilbage på 0 så den kan udksrive 15 nye linjer
+                                            }
+
+                                        }
+                                        Console.ReadKey(true);
+                                        Console.Clear();
+                                        break;
+                                }
+
+                            }
+                            while (tastetryk != "l");
+                            //aflsutter do/while loopet. Admin menuen kører altså så længe brugeren ikke taster L i adminmenuen
+                            Console.Clear();
+                            Console.SetCursorPosition(5, 3);
+                            Console.WriteLine("Logger ud");
+                            Console.ReadKey(true);
+                            Console.Clear();
+                            
+                            break;
+                        }
+                        else
+                            Console.Clear();
+                        Console.SetCursorPosition(5, 3);
+                        Console.WriteLine("Forkert password. Tryk en tast for at vende tilbage til menuen");
+                        Console.ReadKey(true);
+                        Console.Clear();
+                        break;
+                }
+            }
+            while (tastetryk != "q");
+            //aflsutter do/while loopet. Programmet kører altså så længe brugeren ikke taster q i hovedmenuen
+            Console.Clear();
+            Console.SetCursorPosition(3, 5);
+            Console.WriteLine("Program afsluttet");
+            Console.ReadKey(true);
+        }
+    }
+}
