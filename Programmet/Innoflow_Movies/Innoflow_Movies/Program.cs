@@ -16,26 +16,29 @@ namespace Innoflow_Movies
             string[] products = File.ReadAllLines(@"C:\Users\toblar\Desktop\MovieData\MovieData\Products.txt");
             string[] currentUser = File.ReadAllLines(@"C:\Users\toblar\Desktop\MovieData\MovieData\CurrentUserSession.txt");
 
-            double rating = 0;
+            //double rating = 0;
 
             List<ProductDto> productsList = new List<ProductDto>();
             //Populære film
 
-            double HighstRating = 0;
-            string informationForHighestRatingTitle = string.Empty;
+            double HighestRating = 0;
+            string informationForHighestRatingTitle1 = string.Empty;
             string informationForHighestRatingTitle2 = string.Empty;
+            string informationForHighestRatingTitle3 = string.Empty;
             foreach (string product in products)
             {
                 string[] productItems = product.Split(',');
 
-                var currentRating = Convert.ToDouble(productItems[8].Replace('.',','));
+                var currentRating = Convert.ToDouble(productItems[8], CultureInfo.InvariantCulture);
 
-                if (currentRating > HighstRating)
+                if (currentRating > HighestRating)
                 {
-                    HighstRating = currentRating;
-                    informationForHighestRatingTitle2 = informationForHighestRatingTitle;
-                    informationForHighestRatingTitle = product;
+                    HighestRating = currentRating;
+                    informationForHighestRatingTitle2 = informationForHighestRatingTitle1;
+                    informationForHighestRatingTitle3 = informationForHighestRatingTitle2;
+                    informationForHighestRatingTitle1 = product;
                 }
+                Console.WriteLine(informationForHighestRatingTitle1);
 
 
                 //var template = new ProductDto()
@@ -69,8 +72,13 @@ namespace Innoflow_Movies
             public int Id { get; set; }
             public string Title { get; set; }
             public int Year { get; set; }
-            public string Type { get; set; }
+            public string Type1 { get; set; }
+            public string Type2 { get; set; }
+            public string Type3 { get; set; }
+            public string Type4 { get; set; }
+            public string Type5 { get; set; }
             public int Rating { get; set; }
+            public int Price { get; set; }
         }
     }
 }
